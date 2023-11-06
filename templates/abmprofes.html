@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>Libretas Digitales</title>
+    <link rel="stylesheet" href="estilo3.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/4b7878dea0.js" crossorigin="anonymous"></script>
+	<script src=" bootstrap.bundle.min.js/ bootstrap.bundle.js"></script>
+</head>
+
+<body >
+    <header class="header">
+        <div class="container">
+            <div class="btn-menu">
+                <a><img src="marca.jpg" alt="Logo" width="40" height="28" class="p"></a>
+            </div>
+            <div class="logo">
+                <h1>GeVirtual</h1>
+            </div>
+            <nav class="menu">
+                <a href="/iniciopag">Inicio</a>
+                <a href="#">Nosotros</a>
+                <a href="#">Blog</a>
+                <a href="#">Contacto</a>
+            </nav>
+        </div>
+    </header>
+    
+    <div style="margin-left: 700px;" class="container">
+        <div class="row">
+            <div class="dropdown">
+                <br>
+                <button style="background-color: black;" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                
+                    Seleccione Carrera y Año
+                </button>
+
+                <form class="dropdown-menu" method="POST" action="/profcon2" class="col">
+                    <label for="num_carrera" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; background-color: yellow;">CARRERAS</label>
+                    <select class="form-select" name="num_carrera" id="num_carrera">
+                        <option value="" selected disabled>-Haga click para selecionar-</option>
+
+                        <option value="1">TS Desarrollo de Software</option>
+
+                        <option value="2">TS Seguridad e Higiene</option>
+                        
+                        <option value="3">TS Computación y Redes</option>
+                        
+                        <option value="15">TS Administración de Empresas</option>
+                
+                        <option value="14">TS Obras Viales</option>
+                
+                        <option value="16">TS Biomedicina</option>
+              
+                    </select>
+                    <label for="num_carrera"style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; background-color: yellow;">AÑO DE CARRERA</label>
+                    <select class="form-select" name="aio" id="aio">
+                        <option value="" selected disabled>-Haga click para selecionar-</option>
+
+                        <option value="1">Primer año</option>
+
+                        <option value="2">Segundo año</option>
+                        
+                        <option value="3">Tercer año</option>
+
+                    </select>
+                    <button type="submit" class="btn btn-primary">Confirmar y mostrar</button>
+
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="capa"></div>
+       
+       <div class='conteiner-fluid row'>
+            <form method='POST' class= 'col-4 p-3' action="/registrarP">
+                
+                <h3  style="color: rgb(3, 3, 3); text-align: center;">DATOS A INGRESAR DEL PROFESOR</h3>
+                
+                    <div class="mb-3">
+                        Nombre
+                        <input type='text' class='form-control' name='name' required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        Apellido
+                        <input type='text' class='form-control' name='apellido' required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        DNI
+                        <input type='number' class='form-control' name='dni' min="0" max="99999999" required>
+                    </div>                
+                    
+                    <div class="mb-3">
+                        Domicilio
+                        <input type='text' class='form-control' name='domicilio' required>
+                    </div>
+                    <div class="mb-3">
+                        Email
+                        <input type='text' class='form-control' name='email' placeholder="ejemplo@gmail.com" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        Edad
+                        <input type='number' class='form-control' name='edad' min="18" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        Género
+                        <select class="form-select" name="genero" id="genero" required>
+                            
+                            
+                            <option value="" selected disabled></option>
+    
+                            <option>Masculino</option>
+    
+                            <option>Femenino</option>
+                            
+                            <option>Otro</option>
+                            
+                  
+                        </select>
+                    </div>               
+                    
+                    <div class="mb-3">
+                        Cuil
+                        <input type='number' class='form-control' name='cuil' required>
+                    </div>
+
+                    <div class="mb-3">
+                        Carrera que brinda
+                        <select class="form-select" name="idc" id="idc" required>
+                            
+                            
+                            <option value="" selected disabled></option>
+    
+                            <option value="1">TS Desarrollo de Software</option>
+    
+                            <option value="2">TS Seguridad e Higiene</option>
+                            
+                            <option value="3">TS Computación y Redes</option>
+                            
+                            <option value="15">TS Administración de Empresas</option>
+                    
+                            <option value="14">TS Obras Viales</option>
+                    
+                            <option value="16">TS Biomedicina</option>
+                  
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        Año
+                        <select class="form-select" name="anio" id="anio" required>
+                            
+                            
+                            <option value="" selected disabled></option>
+    
+                            <option value="1">Primer año</option>
+    
+                            <option value="2">Segundo año</option>
+                            
+                            <option value="3">Tercer año</option>
+                            
+                  
+                        </select>
+                    </div>
+        
+                    <button type='submit' class='btn btn-primary'>Registrar</button>
+                    <input type='button' value='Actualizar' onclick='document.location.reload();'>
+                
+                
+            </form>
+            <div class='col-8 p-3'>
+            <br>
+            <br>
+            <br>
+            <br>
+            
+            <table class='table'>
+                <thead class= 'bg-info'>
+                    <tr class="table-danger">
+                        <th scope='col'>ID Profe</th>
+                        <th scope='col'>Nombre</th>
+                        <th scope='col'>Apellido</th>
+                        <th scope='col'>DNI</th>
+                        <th scope='col'>Domicilio</th>
+                        <th scope='col'>Email</th>
+                        <th scope='col'>Edad</th>
+                        <th scope='col'>Género</th>
+                        <th scope='col'>Cuil</th>
+                        <th scope='col'>Carrera</th>
+                        <th scope='col'></th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+
+                
+                    {% for fila in cursor1 %}
+                    <tr>
+                        {% for dato in fila %}
+                        <td>{{ dato }}</td>
+                        {% endfor %}
+                        <td>
+                            <form method="POST" action="/editarP">
+                                <button class='btn btn-small btn-warning'><i class='fa-solid fa-pen-to-square'></i></button>
+                                <input type="hidden" name="id_profe" value="{{fila[0]}}">
+                            </form>
+                            <form method="POST" action="borrarP">
+                                <button class='btn btn-small btn-danger'><i class='fa-solid fa-trash'></i></button>
+                                <input type="hidden" name="id_profe" value="{{fila[0]}}">
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                
+                
+
+            </tbody>
+        </table>    
+
+    </div>
+
+</div>
+<script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js' integrity='sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm' crossorigin='anonymous'></script>
+</body>
+</body>

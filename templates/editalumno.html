@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificación de datos</title>
+    <style>
+        body {
+            font-family: verdana;
+            background-color: #f4f757;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 50px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgb(0, 0, 0);
+        }
+
+        h1 {
+            font-size: 30px;
+            color: #000;
+            text-align: center;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #000000;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+   <br>
+   <br>
+    <div class="container">
+        <h1>Alumno Selecionado:{{ datos_alumno[1] }} {{ datos_alumno[2] }}</h1>
+    </h1>
+        <h3 class="text-center text-secondary">DATOS A MODIFICAR DEL ALUMNO</h3>
+        <form method="POST" action="/confirA">
+            <div class="mb-3">
+                ID
+                <input type="text" class="form-control" name="id" value="{{datos_alumno[0]}}" disabled>
+                <input type="hidden" name="id" value="{{datos_alumno[0]}}">
+            </div>
+            <div class="mb-3">
+                Nombre
+                <input type="text" class="form-control" name="name" value="{{datos_alumno[1]}}">
+            </div>
+            <div class="mb-3">
+                Apellido
+                <input type="text" class="form-control" name="apellido" value="{{datos_alumno[2]}}">
+            </div>
+            <div class="mb-3">
+                DNI
+                <input type="text" class="form-control" name="dni" value="{{datos_alumno[3]}}">
+            </div>
+            <div class="mb-3">
+                Domicilio
+                <input type="text" class="form-control" name="domicilio" value="{{datos_alumno[4]}}">
+            </div>
+            <div class="mb-3">
+                Email
+                <input type="text" class="form-control" name="email" value="{{datos_alumno[5]}}">
+            </div>
+            <div class="mb-3">
+                Edad
+                <input type="text" class="form-control" name="edad" value="{{datos_alumno[6]}}">
+            </div>
+            <div class="mb-3">
+                Género
+                <select class="form-control" name="genero" id="genero"  required>
+                    
+                    <option value="{{datos_alumno[7]}}">{{datos_alumno[7]}}</option>
+
+                    <option value="Masculino">Masculino</option>
+
+                    <option value="Femenino">Femenino</option>
+                    
+                    <option value="Otro">Otro</option>
+                    
+          
+                </select>
+            </div>               
+            <div class="mb-3">
+                Carrera
+                <select class="form-control" name="idc" id="idc" required>
+                    
+                    
+                    <option value="{{datos_alumno[8]}}">{{datos_alumno[8]}}</option>
+
+                    <option value="1">TS Desarrollo de Software</option>
+
+                    <option value="2">TS Seguridad e Higiene</option>
+                    
+                    <option value="3">TS Computación y Redes</option>
+                    
+                    <option value="15">TS Administración de Empresas</option>
+            
+                    <option value="14">TS Obras Viales</option>
+            
+                    <option value="16">TS Biomedicina</option>
+          
+                </select>
+            </div>
+            <div class="mb-3">
+                Año
+                <select class="form-control" name="anio" id="anio" required>
+                    
+                    
+                    <option value="{{datos_alumno[9]}}" >{{datos_alumno[9]}}</option>
+
+                    <option value="1">Primer año</option>
+
+                    <option value="2">Segundo año</option>
+                    
+                    <option value="3">Tercer año</option>
+                    
+          
+                </select>
+            </div>
+           
+
+            <button type='submit' class='btn btn-primary'>MODIFICAR</button> 
+        </form>
+    </div>
+</body>
+</html>

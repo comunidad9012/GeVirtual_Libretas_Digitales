@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificación de datos</title>
+    <style>
+        body {
+            font-family: verdana;
+            background-color: #f4f757;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 50px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgb(0, 0, 0);
+        }
+
+        h1 {
+            font-size: 30px;
+            color: #000;
+            text-align: center;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #000000;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+   <br>
+   <br>
+    <div class="container">
+        <h1>ID del Alumno Selecionado:{{ resultado.id }} </h1>
+    </h1>
+        <h3 class="text-center text-secondary">COMPLETAR LOS SIGUIENTES CAMPOS</h3>
+        <form method="POST" action="confirnotas">
+            <div class="mb-3">
+                ID
+                <input type="text" class="form-control" name="id" value="{{resultado.id}}" disabled>
+                <input type="hidden" name="id" value="{{resultado.id}}">
+            </div>
+            <div class="mb-3">
+                Materia
+                <select class="form-control" name="materia" id="materia" required>
+                    
+                    <option value="" selected disabled></option>
+
+                    {%for x in resultado.materias %}
+                    <option value="{{x[0]}}">{{x[1]}} </option>
+                    {%endfor%}
+          
+                </select>
+            </div>
+            <div class="mb-3">
+                Tipo de evaluación
+                <select class="form-control" name="evaluacion" id="evaluacion" required>
+                    
+                    
+                    <option value="" selected disabled></option>
+
+                    <option value="1">Exámen Parcial</option>
+
+                    <option value="2">Exámen Final</option>
+                    
+                    <option value="3">Trabajo Práctico</option>
+                    
+                    <option value="4">Revisión de carpetas</option>
+
+                    <option value="5">Evaluación escrita</option>
+                    
+                    <option value="6">Evaluación oral</option>
+
+                </select>
+            </div>
+            <div class="mb-3">
+                Calificación
+                <input type="number" class="form-control" name="calificacion" min="0" max="10" required>
+            </div>
+
+            <button type='submit' class='btn btn-primary'>GUARDAR</button> 
+        </form>
+    </div>
+</body>
+</html>

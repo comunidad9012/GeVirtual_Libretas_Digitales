@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificación de datos</title>
+    <style>
+        body {
+            font-family: verdana;
+            background-color: #f4f757;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 50px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgb(0, 0, 0);
+        }
+
+        h1 {
+            font-size: 30px;
+            color: #000;
+            text-align: center;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #000000;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+   <br>
+   <br>
+    <div class="container">
+        <h1>ID de la carrera seleccionada: {{datos_carrera[0]}}</h1>
+        <h3 class="text-center text-secondary">DATOS A MODIFICAR DE LA CARRERA</h3>
+        <form method="POST" action="/confirC">
+            <div class="mb-3">
+                ID
+                <input type="text" class="form-control" name="id" value="{{datos_carrera[0]}}" disabled>
+                <input type="hidden" name="id" value="{{datos_carrera[0]}}">
+            </div>
+            <div class="mb-3">
+                Nombre
+                <input type="text" class="form-control" name="name" value="{{datos_carrera[1]}}">
+            </div>
+            <div class="mb-3">
+                Resolución
+                <input type="text" class="form-control" name="resolucion" value="{{datos_carrera[2]}}">
+            </div>
+            <div class="mb-3">
+                Modalidad
+                <input type="text" class="form-control" name="modalidad" value="{{datos_carrera[3]}}">
+            </div>
+            <div class="mb-3">
+                Duración
+                <input type="text" class="form-control" name="duracion" value="{{datos_carrera[4]}}">
+            </div>
+
+            <button type='submit' class='btn btn-primary'>MODIFICAR</button> 
+        </form>
+    </div>
+</body>
+</html>
