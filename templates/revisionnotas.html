@@ -59,18 +59,13 @@
         </thead>
         <tbody>
 
-        {% for fila in resultados.materias %}
+        {% for fila in cursor1 %}
             <tr>
                 {% for dato in fila %}
                 <td>{{ dato }}</td>
                 {% endfor %}
                 <td>
-                    <form method="POST" action="/revisarnotas">
-                        <button class='btn btn-small btn-primary'><i class='fa-solid fa-file'></i></button>
-                        <input type="hidden" name="id_carrera" value="{{fila[1]}}">
-                        <input type="hidden" name="id_alum" value="{{resultados.id}}">
-
-                    </form>
+                    
                 </td>
             </tr>
             {% endfor %}
@@ -79,8 +74,3 @@
 
     </tbody>
 </table>    
-
-
-</body>
-
-</html>

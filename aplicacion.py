@@ -835,7 +835,8 @@ def libreta(request, response):
     aio = request.POST.get ('aio')
 
     resultados = {}
-
+    
+    resultados ['id']= id
     resultados ['nombre']= nombre
     resultados ['apellido']= apellido
     resultados ['dni']= dni
@@ -843,12 +844,15 @@ def libreta(request, response):
     resultados ['carrera']= carrera
     resultados ['aio']= aio
     
-    cursor1.execute("""SELECT materias.Nombre AS nombre_materia, 
-       libreta.Calificacion
-        FROM libreta
-        INNER JOIN materias ON libreta.materia_id = materias.ID_materias
+    cursor1.execute("""SELECT materias.Nombre AS nombre_materia, libreta.Materia_id, min(libreta.calificacion), max(libreta.calificacion), count(libreta.calificacion), avg(libreta.Calificacion)
+        FROM materias
+        INNER JOIN libreta 
+        ON libreta.materia_id = materias.ID_materias
         WHERE libreta.alum_id = %s
+        GROUP BY libreta.Materia_id
         LIMIT 5;""",(id,))
+
+
 
     resultados['materias']=cursor1.fetchall()
     
@@ -858,7 +862,23 @@ def libreta(request, response):
     response.text = rendered_html
     return response
 
+#REVISAR NOTAS DE ALUMNOS
+@app.ruta('/revisarnotas', methods=['POST'])
+def revisar (request, response):
+    id = request.POST.get('id_carrera')
+    ida = request.POST.get('id_alum')
 
+    cursor1.execute("""SELECT calificacion
+                    FROM libreta
+                    WHERE Materia_id = %s  and alum_id = %s;""",(id,ida))
+    
+    resultados = cursor1.fetchall()
+
+    template = env.get_template('revisionnotas.html')
+    rendered_html = template.render(cursor1=resultados)
+    response = Response()
+    response.text = rendered_html
+    return response
 
 app=WhiteNoise(app, root='static/')
 
