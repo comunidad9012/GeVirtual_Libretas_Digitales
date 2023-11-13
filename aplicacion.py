@@ -868,9 +868,11 @@ def revisar (request, response):
     id = request.POST.get('id_carrera')
     ida = request.POST.get('id_alum')
 
-    cursor1.execute("""SELECT calificacion
+    cursor1.execute("""SELECT libreta.calificacion, tipo_evaluación.nombre
                     FROM libreta
-                    WHERE Materia_id = %s  and alum_id = %s;""",(id,ida))
+                    INNER JOIN tipo_evaluación
+                    ON libreta.evaluacion_id = tipo_evaluación.ID_Tipo_evaluacion
+                    WHERE libreta.Materia_id = %s and libreta.alum_id = %s;""",(id,ida))
     
     resultados = cursor1.fetchall()
 
