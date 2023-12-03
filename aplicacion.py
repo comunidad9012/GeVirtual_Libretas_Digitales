@@ -1,11 +1,10 @@
 from apiwsgi import Wsgiclass
 from whitenoise import WhiteNoise
-from jinja2 import Environment, FileSystemLoader
+from jinja2 import Environment, FileSystemLoader #para poder acceder a las plantillas
 import mysql.connector 
 from webob import Request, Response
 from wsgiref.simple_server import make_server
-import cgi
-import os
+import os #para las direcciones de los archivos
 
 #waitress-serve --listen=127.0.0.1:8000 aplicacion:app
 #.\env\Scripts\activate
