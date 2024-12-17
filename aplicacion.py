@@ -1,10 +1,12 @@
 from apiwsgi import Wsgiclass
 from whitenoise import WhiteNoise
-from jinja2 import Environment, FileSystemLoader #para poder acceder a las plantillas
+from jinja2 import Environment, FileSystemLoader #para poder recorrer/cargar/acceder = gestionar a las plantillas
 import mysql.connector 
 from webob import Request, Response
 from wsgiref.simple_server import make_server
 import os #para las direcciones de los archivos
+from bcrypt import hashpw, gensalt, checkpw
+from flask import Flask, session
 
 #waitress-serve --listen=127.0.0.1:8000 aplicacion:app
 #.\env\Scripts\activate
@@ -22,6 +24,7 @@ conexion1 = mysql.connector.connect(
 cursor1 = conexion1.cursor()
 
 app = Wsgiclass()
+app.secret_key = 'tu_clave_secreta_aqui'  # Cambia esto por una clave secreta segura
 
 @app.ruta("/")
 def index(request, response):
@@ -32,10 +35,104 @@ def index(request, response):
     return response
 
 
+# Ruta para mostrar el formulario de login
+@app.ruta('/acceso', methods=['GET'])
+def mostrar_login(request, response):
+    template = env.get_template('login.html')
+    rendered_html = template.render()
+    response = Response()
+    response.text = rendered_html
+    return response
 
-@app.ruta('/iniciopag')
-def inicio(request, response):
+
+# Ruta para manejar el envío del formulario de login
+# Ruta para manejar el envío del formulario de login
+@app.ruta('/loginprocess', methods=['POST'])
+def procesar_login(request, response):
+    email = request.POST.get('usuario')  # Cambié 'usuario' por 'email', porque 'usuario' está en el formulario
+    contraseña = request.POST.get('contraseña')
+
+    # Buscar el usuario en la base de datos
+    cursor1.execute("SELECT contraseña, rol FROM usuarios WHERE email = %s", (email,))
+    usuario = cursor1.fetchone()
+
+    if usuario:
+        # Extraer el hash de la contraseña y el rol del usuario
+        contraseña_hash, rol = usuario  # 'usuario' devuelve una tupla, accedemos a los valores
+
+        # Verificar la contraseña
+        if checkpw(contraseña.encode('utf-8'), contraseña_hash.encode('utf-8')):
+
+            # Redirigir según el rol
+            if rol == 'admin':
+                response.status_code = 302
+                response.headers['Location'] = '/iniciopagadmin'  # Redirige al administrador
+            else:
+                response.status_code = 302
+                response.headers['Location'] = '/iniciopaguser'  # Redirige al usuario común
+            return response
+        else:
+            mensaje = "Contraseña incorrecta"
+    else:
+        mensaje = "Usuario no encontrado"
+
+    # Si algo falla, renderiza el formulario de login con un mensaje de error
+    template = env.get_template('login.html')
+    rendered_html = template.render(mensaje=mensaje)
+    response = Response()
+    response.text = rendered_html
+    return response
+
+
+# Ruta para registrar un usuario nuevo
+@app.ruta('/registro', methods=['GET', 'POST'])
+def registrar_usuario(request, response):
+    if request.method == 'GET':
+        template = env.get_template('registro.html')
+        rendered_html = template.render()
+        response = Response()
+        response.text = rendered_html
+        return response
+    elif request.method == 'POST':
+        nombre_usuario = request.POST.get('nombre')
+        apellido = request.POST.get('apellido')
+        documento = request.POST.get('documento')
+        email = request.POST.get('email')  # Corregir el acceso al correo
+        contraseña = request.POST.get('contraseña')
+
+        # Encriptar la contraseña antes de guardarla
+        contraseña_hash = hashpw(contraseña.encode('utf-8'), gensalt()).decode('utf-8')
+
+        try:
+            cursor1.execute("""INSERT INTO usuarios (nombre_usuario, apellido, documento, email, contraseña, rol) VALUES (%s, %s, %s, %s, %s, 'user')""",
+                            (nombre_usuario, apellido, documento, email, contraseña_hash))
+            conexion1.commit()
+
+            # Redirigir al login y pasar el mensaje de éxito
+            response.status_code = 302
+            response.headers['Location'] = '/acceso?registro_exitoso=true'  # Añadir el parámetro para mostrar el mensaje
+            return response
+        except mysql.connector.Error as err:
+            print(f"Error: {err}")
+            mensaje = "Error al registrar el usuario. Intenta con otro nombre de usuario."
+            template = env.get_template('registro.html')
+            rendered_html = template.render(mensaje=mensaje)
+            response = Response()
+            response.text = rendered_html
+            return response
+
+
+@app.ruta('/iniciopagadmin')
+def inicio_admin(request, response):
     template= env.get_template('iniciopag.html')
+    rendered_html = template.render()
+    response=Response()
+    response.text = rendered_html
+    return response
+
+@app.ruta('/iniciopaguser')
+def inicio_user(request, response):
+    template= env.get_template('iniciopaguser.html')
     rendered_html = template.render()
     response=Response()
     response.text = rendered_html
@@ -50,6 +147,13 @@ def carreras(request, response):
     response.text = rendered_html
     return response
 
+@app.ruta('/carrerasuser')
+def carreras_user(request, response):
+    template= env.get_template('carrerasuser.html')
+    rendered_html = template.render()
+    response=Response()
+    response.text = rendered_html
+    return response
 
 #CONSULTA A CARRERAS
 @app.ruta('/consultacarreras')
@@ -146,7 +250,9 @@ def borrarC (request, response):
 
     id = request.POST.get('id_carrera')
 
-    cursor1.execute(f"delete FROM Carrera WHERE (`ID_Carrera` = '{id}')")
+    
+    #cursor1.execute(f"delete FROM Carrera WHERE (`ID_Carrera` = '{id}')")
+    cursor1.execute("DELETE FROM Carrera WHERE ID_Carrera = %s", (id,))
     conexion1.commit()
     response=Response()
     response.status_code = 302
@@ -200,6 +306,14 @@ def alumnos(request, response):
     response.text = rendered_html
     return response
 
+@app.ruta('/alumnosuser')
+def alumnos_user(request, response):
+    template= env.get_template('alumnosuser.html')
+    rendered_html = template.render()
+    response=Response()
+    response.text = rendered_html
+    return response
+
 #CONSULTA DE ALUMNOS
 @app.ruta('/consalum')
 def consalum(request, response):
@@ -209,6 +323,13 @@ def consalum(request, response):
     response.text = rendered_html
     return response
 
+@app.ruta('/consalumuser')
+def consalum_user(request, response):
+    template= env.get_template('consultaalumnosuser.html')
+    rendered_html = template.render()
+    response=Response()
+    response.text = rendered_html
+    return response
 
 #CONSULTA DE ALUMNOS POR CARRERA Y AÑO ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 @app.ruta('/alumcon',methods=['POST'])
@@ -231,7 +352,28 @@ def alumcon(request, response):
     response = Response()
     response.text = rendered_html
     return response
-        
+
+@app.ruta('/alumconuser',methods=['POST'])
+def alumcon(request, response):
+    
+    
+    num = request.POST.get('num_carrera')
+    aio = request.POST.get('aio')
+
+    
+    
+    
+    cursor1.execute("SELECT alumnos.*, carrera.nombre FROM alumnos JOIN carrera ON alumnos.ID_carre_corresp = carrera.ID_carrera WHERE alumnos.ID_carre_corresp = %s AND alumnos.anio = %s;", (num, aio))
+
+    
+    resultados = cursor1.fetchall()
+
+    template = env.get_template('consultaalumnosuser.html')
+    rendered_html = template.render(cursor1=resultados)
+    response = Response()
+    response.text = rendered_html
+    return response
+                
       
 #ABM ALUMNOS
 @app.ruta('/abmalumnos')
@@ -800,6 +942,34 @@ def cargarcali(request, response):
     response.text = rendered_html
     return response
 
+@app.ruta('/generaruser')
+def libre_user(request, response):
+    template= env.get_template('generarlibretauser.html')
+    rendered_html = template.render()
+    response=Response()
+    response.text = rendered_html
+    return response
+
+
+@app.ruta('/consparageneraruser', methods=['GET', 'POST'])
+def libretaa(request, response):
+    documento = request.POST.get('documento')
+
+    cursor1.execute("""
+        SELECT alumnos.*, carrera.nombre 
+        FROM alumnos 
+        JOIN carrera 
+        ON alumnos.ID_carre_corresp = carrera.ID_carrera 
+        WHERE alumnos.DNI = %s
+    """, (documento,))
+    resultados = cursor1.fetchall()
+    template = env.get_template('generarlibretauser.html')
+    rendered_html = template.render(cursor1=resultados)
+    print(resultados)
+    response = Response()
+    response.text = rendered_html
+    return response
+
 
 #CONSULTA DE ALUMNOS POR CARRERA Y AÑO
 @app.ruta('/consparagenerar',methods=['POST'])
@@ -880,6 +1050,8 @@ def revisar (request, response):
     response = Response()
     response.text = rendered_html
     return response
+
+
 
 app=WhiteNoise(app, root='static/')
 

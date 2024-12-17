@@ -61,7 +61,7 @@
                 Profesor Correspondiente
                 <select class="form-control" name="pc" id="pc" >
                     
-                    <option value="{{datos_materia[2]}}" selected disabled></option>
+                    <option value="{{datos_materia[2]}}" selected disabled>{{datos_materia[2]}}</option>
 
                     {%for x in profesores %}
                     <option value="{{x[0]}}">{{x[1]}} {{x[2]}}</option>
@@ -75,7 +75,7 @@
                 <select class="form-control" name="anio" id="anio" >
                     
                     
-                    <option value="{{datos_materia[3]}}" selected disabled></option>
+                    <option value="{{datos_materia[3]}}" selected disabled>{{datos_materia[3]}}</option>
 
                     <option value="1">Primer año</option>
 
@@ -92,7 +92,7 @@
                 <select class="form-control" name="idc" id="idc" >
                     
                     
-                    <option value="" selected disabled></option>
+                    <option value="{{datos_materia[3]}}" selected disabled>{{datos_materia[3]}}</option>
 
                     <option value="1">TS Desarrollo de Software</option>
 
