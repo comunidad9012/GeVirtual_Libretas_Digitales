@@ -228,6 +228,19 @@ def carreras(request, response):
     response.text = rendered_html
     return response
 
+@app.ruta('/myec')
+def carreras(request, response):
+    
+    cursor1.execute("SELECT * FROM carrera")
+    
+    resultados = cursor1.fetchall()
+
+    template= env.get_template('myec.html')
+    rendered_html = template.render(cursor1=resultados)
+    response=Response()
+    response.text = rendered_html
+    return response
+
 #REGISTRAR CARRERAS
 @app.ruta('/registrarC', methods=['POST'])
 def registrarC(request, response):
@@ -403,6 +416,7 @@ def alumcon2(request, response):
     return response
 
 
+
 #MATRICULAR ALUMNOS
 @app.ruta('/matricularA', methods=['POST'])
 def matricularA (request, response):
@@ -413,15 +427,44 @@ def matricularA (request, response):
     Email = request.POST.get('email')
     Edad = request.POST.get('edad')
     Genero = request.POST.get('genero')
+    Estado = request.POST.get('estado')
+    Ingreso = request.POST.get('fecha_ingreso')
     IDC = request.POST.get('idc')
     Año = request.POST.get('anio')
 
-    cursor1.execute ("INSERT INTO Alumnos(Nombre,Apellido,DNI,Domicilio,Email,Edad,Género,id_carre_corresp, anio) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)", (Nombre, Apellido, DNI, Domicilio,Email,Edad,Genero,IDC,Año))
+    cursor1.execute ("INSERT INTO Alumnos(Nombre,Apellido,DNI,Domicilio,Email,Edad,Género,Estado,Ingreso,id_carre_corresp, anio) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", (Nombre, Apellido, DNI, Domicilio,Email,Edad,Genero,Estado,Ingreso,IDC,Año))
     conexion1.commit()
     #SIRVE PARA REDIRECCIONAR
     response=Response()
     response.status_code = 302
     response.headers['Location'] = '/abmalumnos'
+    return response
+
+#ABM ALUMNOS
+@app.ruta('/myea')
+def alum(request, response):
+    template= env.get_template('myea.html')
+    rendered_html = template.render()
+    response=Response()
+    response.text = rendered_html
+    return response
+    
+#CONSULTA DE ALUMNOS POR CARRERA Y AÑO EN ABM
+@app.ruta('/alumcon3',methods=['POST'])
+def alumcon2(request, response):
+    
+    
+    num = request.POST.get('num_carrera')
+    aio = request.POST.get('aio')
+    
+    cursor1.execute("SELECT * FROM alumnos WHERE id_carre_corresp = %s AND anio = %s;", (num, aio))
+    
+    resultados = cursor1.fetchall()
+
+    template = env.get_template('myea.html')
+    rendered_html = template.render(cursor1=resultados)
+    response = Response()
+    response.text = rendered_html
     return response
 
 #EDITAR DATOS DE ALUMNOS
@@ -453,19 +496,21 @@ def confirA (request, response):
     Email = request.POST.get('email')
     Edad = request.POST.get('edad')
     Genero = request.POST.get('genero')
+    Estado = request.POST.get('estado')
+    Ingreso = request.POST.get('fechaingreso')
     IDC = request.POST.get('idc')
     Año = request.POST.get('anio')
 
 
     try:
-        resultado = f"UPDATE `mydb`.`Alumnos` SET `Nombre` = '{Nombre}', `Apellido` = '{Apellido}', `DNI` = '{DNI}', `Domicilio` = '{Domicilio}',`Email` = '{Email}', `Edad` = '{Edad}', `Género` = '{Genero}', `id_carre_corresp` = '{IDC}', `anio` = '{Año}' WHERE (`ID_Alum` = '{id}');"
+        resultado = f"UPDATE `mydb`.`Alumnos` SET `Nombre` = '{Nombre}', `Apellido` = '{Apellido}', `DNI` = '{DNI}', `Domicilio` = '{Domicilio}',`Email` = '{Email}', `Edad` = '{Edad}', `Género` = '{Genero}', `Estado` = '{Estado}' , `Ingreso` = '{Ingreso}', `id_carre_corresp` = '{IDC}', `anio` = '{Año}' WHERE (`ID_Alum` = '{id}');"
         cursor1.execute (resultado)
     except Exception as e:
         print("Error mysql:", str(e))
     conexion1.commit()
     response=Response()
     response.status_code = 302
-    response.headers['Location'] = '/abmalumnos'
+    response.headers['Location'] = '/alumnos'
     return response
 
 #BORRAR ALUMNO
@@ -571,7 +616,7 @@ def materiacarrera (request, response):
     return response
 
 #CONSULTA DE MATERIAS POR CARRERA Y AÑO
-@app.ruta('/matecon',methods=['POST'])
+@app.ruta('/matecon1',methods=['POST'])
 def matecon(request, response):
     
     
@@ -596,6 +641,32 @@ def matecon(request, response):
     response.text = rendered_html
     return response
 
+#CONSULTA DE MATERIAS POR CARRERA Y AÑO
+@app.ruta('/matecon',methods=['POST'])
+def matecon(request, response):
+    
+    
+    num = request.POST.get('mat_carrera')
+    aio = request.POST.get('aio')
+
+    
+    
+    
+    cursor1.execute("""SELECT materias.id_materias, materias.Nombre AS Nombre_materia, profesor.nombre AS Nombre_profesor, profesor.apellido AS Apellido ,materias.anio, carrera.Nombre AS Nombre_carrera
+                        FROM materias
+                        INNER JOIN profesor ON materias.id_prof_corresp = profesor.id_profesor
+                        INNER JOIN carrera ON materias.id_carre_corresp = carrera.id_carrera
+                        WHERE materias.id_carre_corresp = %s AND materias.anio = %s;""", (num, aio))
+
+    
+    resultados = cursor1.fetchall()
+
+    template = env.get_template('myem.html')
+    rendered_html = template.render(cursor1=resultados)
+    response = Response()
+    response.text = rendered_html
+    return response
+
 #ABM MATERIAS
 @app.ruta('/abmaterias')
 def materias(request, response):
@@ -605,6 +676,16 @@ def materias(request, response):
     response=Response()
     response.text = rendered_html
     return response
+
+#MODIFICAR Y ELIMINAR MATERIAS
+@app.ruta('/myem')
+def myem (request, response):
+    template= env.get_template('myem.html')
+    rendered_html = template.render()
+    response=Response()
+    response.text = rendered_html
+    return response
+
 
 #CONSULTA DE MATERIAS POR CARRERA Y AÑO EN ABM
 @app.ruta('/materiacon',methods=['POST'])
@@ -623,7 +704,7 @@ def materiacon(request, response):
     
     resultados = cursor1.fetchall()
 
-    template = env.get_template('abmaterias.html')
+    template = env.get_template('myem.html')
     rendered_html = template.render(cursor1=resultados)
     response = Response()
     response.text = rendered_html
@@ -706,7 +787,7 @@ def confirM (request, response):
     conexion1.commit()
     response=Response()
     response.status_code = 302
-    response.headers['Location'] = '/abmaterias'
+    response.headers['Location'] = '/myem'
     return response
 
 #BORRAR MATERIA
@@ -719,7 +800,7 @@ def borrarC (request, response):
     conexion1.commit()
     response=Response()
     response.status_code = 302
-    response.headers['Location'] = '/abmaterias'
+    response.headers['Location'] = '/myem'
     return response
 
 
@@ -775,6 +856,15 @@ def abmprofes(request, response):
     response.text = rendered_html
     return response
 
+#MODIFICAR Y ELIMINAR MATERIAS
+@app.ruta('/myep')
+def myem (request, response):
+    template= env.get_template('myep.html')
+    rendered_html = template.render()
+    response=Response()
+    response.text = rendered_html
+    return response
+
 #CONSULTA DE PROFESORES POR CARRERA Y AÑO EN ABM
 @app.ruta('/profcon2',methods=['POST'])
 def profecon2(request, response):
@@ -789,7 +879,7 @@ def profecon2(request, response):
         
     resultados = cursor1.fetchall()
 
-    template = env.get_template('abmprofes.html')
+    template = env.get_template('myep.html')
     rendered_html = template.render(cursor1=resultados)
     response = Response()
     response.text = rendered_html

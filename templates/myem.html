@@ -293,55 +293,90 @@
     </nav>
     <br>
     <br>
+
+    <div class="container">
+        <div class="row">
+            <div class="dropdown">
+                <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Seleccione una Carrera
+                </button>
     
-    <div class="container-fluid">
-        <div class="row justify-content-center">
-            <form method="POST" class="col-md-6 shadow-lg p-4 rounded bg-light" action="/registrarC">
-                <h3 class="text-center text-primary mb-4">Datos a ingresar de la Carrera</h3>
-    
-                <!-- Campo Nombre -->
-                <div class="mb-3">
-                    <label for="name" class="form-label fw-bold">Nombre</label>
-                    <input type="text" class="form-control" name="name" id="name" placeholder="Nombre de la carrera" required>
-                </div>
-    
-                <!-- Campo Resolución -->
-                <div class="mb-3">
-                    <label for="resolucion" class="form-label fw-bold">Resolución</label>
-                    <input type="text" class="form-control" name="resolucion" id="resolucion" placeholder="Ejemplo: Res. 123/2024" required>
-                </div>
-    
-                <!-- Campo Modalidad -->
-                <div class="mb-3">
-                    <label for="modalidad" class="form-label fw-bold">Modalidad</label>
-                    <select class="form-select" name="modalidad" id="modalidad" required>
-                        <option value="" selected disabled>Seleccione la modalidad</option>
-                        <option>Presencial</option>
-                        <option>Virtual</option>
-                        <option>Híbrida</option>
+                <form class="dropdown-menu p-3 shadow rounded" method="POST" action="/matecon">
+                    <label for="mat_carrera" class="form-label fw-bold text-primary">Carrera</label>
+                    <select class="form-select mb-3" name="mat_carrera" id="mat_carrera">
+                        <option value="" selected disabled>-Haga click para seleccionar-</option>
+                        <option value="1">TS Desarrollo de Software</option>
+                        <option value="2">TS Seguridad e Higiene</option>
+                        <option value="3">TS Computación y Redes</option>
+                        <option value="15">TS Administración de Empresas</option>
+                        <option value="14">TS Obras Viales</option>
+                        <option value="16">TS Biomedicina</option>
                     </select>
-                </div>
     
-                <!-- Campo Duración -->
-                <div class="mb-3">
-                    <label for="duracion" class="form-label fw-bold">Duración</label>
-                    <select class="form-select" name="duracion" id="duracion" required>
-                        <option value="" selected disabled>Seleccione la duración</option>
-                        <option>2 años</option>
-                        <option>3 años</option>
-                        <option>4 años</option>
-                        <option>5 años</option>
+                    <label for="aio" class="form-label fw-bold text-primary">Año de Carrera</label>
+                    <select class="form-select mb-3" name="aio" id="aio">
+                        <option value="" selected disabled>-Haga click para seleccionar-</option>
+                        <option value="1">Primer año</option>
+                        <option value="2">Segundo año</option>
+                        <option value="3">Tercer año</option>
                     </select>
-                </div>
     
-                <!-- Botones -->
-                <div class="text-center mt-4">
-                    <button type="submit" class="btn btn-primary w-50">Registrar</button>
-                </div>
-            </form>
+                    <button type="submit" class="btn btn-primary w-100">Confirmar y mostrar</button>
+                </form>
+            </div>
         </div>
     </div>
+    <br>
+    <br>
     
-<script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js' integrity='sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm' crossorigin='anonymous'></script>
+   <!-- Tabla con estilo mejorado -->
+<div class="container mt-4">
+    <div class="table-responsive shadow-sm rounded">
+        <table class="table table-striped table-hover align-middle">
+            <thead class="table-dark text-center">
+                <tr>
+                    <th scope="col">ID Materia</th>
+                    <th scope="col">Nombre Materia</th>
+                    <th scope="col">Nombre Profesor</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">Año</th>
+                    <th scope="col">Nombre Carrera</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                {% for fila in cursor1 %}
+                <tr>
+                    {% for dato in fila %}
+                    <td>{{ dato }}</td>
+                    {% endfor %}
+                    <td>
+                        <div class="d-flex justify-content-center">
+                            <!-- Botón Editar -->
+                            <form method="POST" action="/editarM" class="me-2">
+                                <input type="hidden" name="id_materia" value="{{fila[0]}}">
+                                <button class="btn btn-warning btn-sm" title="Editar">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </button>
+                            </form>
+                            <!-- Botón Eliminar -->
+                            <form method="POST" action="/borrarM">
+                                <input type="hidden" name="id_materia" value="{{fila[0]}}">
+                                <button class="btn btn-danger btn-sm" title="Eliminar">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
 </body>
-</body>
+
+</html>

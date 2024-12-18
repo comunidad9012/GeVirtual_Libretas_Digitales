@@ -6,92 +6,129 @@
     <title>Modificación de datos</title>
     <style>
         body {
-            font-family: verdana;
-            background-color: #f4f757;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 0;
         }
 
         .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 50px;
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgb(0, 0, 0);
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
-            font-size: 30px;
-            color: #000;
+            font-size: 24px;
+            color: #333;
             text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-size: 18px;
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
         }
 
         .form-control {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
-            border: 1px solid #000000;
-            border-radius: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
             font-size: 16px;
+            transition: border-color 0.3s;
         }
 
-        .text-center {
-            text-align: center;
+        .form-control:focus {
+            outline: none;
+            border-color: #4a90e2;
+            box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+        }
+
+        button[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #4a90e2;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #357abf;
+        }
+
+        .mb-3 {
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            font-size: 18px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            h3 {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
-
 <body>
-   <br>
-   <br>
     <div class="container">
-        <h1>ID del Alumno Selecionado:{{ resultado.id }} </h1>
-    </h1>
+        <h1>ID del Alumno Seleccionado: {{ resultado.id }}</h1>
         <h3 class="text-center text-secondary">COMPLETAR LOS SIGUIENTES CAMPOS</h3>
         <form method="POST" action="confirnotas">
             <div class="mb-3">
-                ID
-                <input type="text" class="form-control" name="id" value="{{resultado.id}}" disabled>
+                <label for="id">ID</label>
+                <input type="text" class="form-control" id="id" name="id" value="{{resultado.id}}" disabled>
                 <input type="hidden" name="id" value="{{resultado.id}}">
             </div>
             <div class="mb-3">
-                Materia
+                <label for="materia">Materia</label>
                 <select class="form-control" name="materia" id="materia" required>
-                    
-                    <option value="" selected disabled></option>
-
-                    {%for x in resultado.materias %}
-                    <option value="{{x[0]}}">{{x[1]}} </option>
-                    {%endfor%}
-          
+                    <option value="" selected disabled>Seleccionar materia</option>
+                    {% for x in resultado.materias %}
+                    <option value="{{x[0]}}">{{x[1]}}</option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="mb-3">
-                Tipo de evaluación
+                <label for="evaluacion">Tipo de evaluación</label>
                 <select class="form-control" name="evaluacion" id="evaluacion" required>
-                    
-                    
-                    <option value="" selected disabled></option>
-
-                    <option value="1">Exámen Parcial</option>
-
-                    <option value="2">Exámen Final</option>
-                    
+                    <option value="" selected disabled>Seleccionar evaluación</option>
+                    <option value="1">Examen Parcial</option>
+                    <option value="2">Examen Final</option>
                     <option value="3">Trabajo Práctico</option>
-                    
                     <option value="4">Revisión de carpetas</option>
-
                     <option value="5">Evaluación escrita</option>
-                    
                     <option value="6">Evaluación oral</option>
-
                 </select>
             </div>
             <div class="mb-3">
-                Calificación
-                <input type="number" class="form-control" name="calificacion" min="0" max="10" required>
+                <label for="calificacion">Calificación</label>
+                <input type="number" class="form-control" id="calificacion" name="calificacion" min="0" max="10" required>
             </div>
-
-            <button type='submit' class='btn btn-primary'>GUARDAR</button> 
+            <button type="submit" class="btn btn-primary">GUARDAR</button>
         </form>
     </div>
 </body>

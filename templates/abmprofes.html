@@ -1,233 +1,376 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<meta charset="UTF-8">
-	<title>Libretas Digitales</title>
-    <link rel="stylesheet" href="estilo3.css">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevas Opciones</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/4b7878dea0.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/4b7878dea0.js" crossorigin="anonymous"></script>
 	<script src=" bootstrap.bundle.min.js/ bootstrap.bundle.js"></script>
-</head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        h3 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            font-weight: bold;
+        }
 
-<body >
-    <header class="header">
-        <div class="container">
-            <div class="btn-menu">
-                <a><img src="marca.jpg" alt="Logo" width="40" height="28" class="p"></a>
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .form-group label {
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .form-control, .form-select {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .form-container .btn {
+            margin-top: 15px;
+        }
+        header {
+            background: linear-gradient(90deg, #343a40, #212529);
+            color: white;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        header img {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: auto;
+        }
+
+        /* MENÚ LATERAL */
+        #btn-menu {
+            display: none;
+        }
+
+        .container-menu {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100%;
+            background-color: #343a40;
+            transition: all 0.3s;
+            z-index: 1050; /* Aseguramos que el menú esté por encima del contenido */
+        }
+
+        .cont-menu {
+            padding: 20px;
+            color: white;
+        }
+
+        .perfil {
+            margin-bottom: 20px;
+        }
+
+        .perfil img {
+            margin-bottom: 10px;
+        }
+
+        .menu-lateral a {
+            color: #ffffff;
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .menu-lateral a:hover {
+            background: #495057;
+        }
+
+        .menu-lateral a i {
+            margin-right: 10px;
+        }
+
+        .close-menu {
+            color: red;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: block;
+            text-align: right;
+        }
+
+        #btn-menu:checked ~ .container-menu {
+            left: 0;
+        }
+
+        /* CONTENIDO CENTRAL */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.3s ease;
+            z-index: 1;
+        }
+
+        #btn-menu:checked ~ main {
+            transform: translateX(300px); /* Mueve el contenido cuando el menú se abre */
+        }
+
+        .title-section {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #343a40;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            border-bottom: 3px solid #007bff;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+
+        .category {
+            color: black;
+            font-size: 25px;
+            text-decoration: none;
+        }
+
+        /* TARJETAS */
+        .card-option {
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            width: 250px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin: 10px;
+        }
+
+        .card-option:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-option i {
+            font-size: 2.5rem;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+        }
+
+        /* BARRA DE NAVEGACIÓN */
+        .navbar {
+            background-color: #212529;
+        }
+
+        .navbar-nav a {
+            color: white;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        .navbar-nav a:hover {
+            color: #ffc107;
+        }
+
+        /* Hacer que las tarjetas se alineen en fila */
+        .card-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+    </style>
+</head>
+<body>
+    <input type="checkbox" id="btn-menu">
+    <div class="container-menu">
+        <div class="cont-menu">
+            <div class="perfil text-center">
+                <img src="perfil2.jpg" alt="Usuario" class="rounded-circle" style="width: 80px; height: 80px;">
+                <div id="nameuser" style="color: yellow; font-size: 1rem;">
+                    <span>Rol: Usuario</span>
+                </div>
             </div>
-            <div class="logo">
-                <h1>GeVirtual</h1>
-            </div>
-            <nav class="menu">
-                <a href="/iniciopag">Inicio</a>
-                <a href="#">Nosotros</a>
-                <a href="#">Blog</a>
-                <a href="#">Contacto</a>
+            <nav class="menu-lateral">
+                <a href="/carreras"><i class="fas fa-graduation-cap"></i> Carreras</a>
+                <a href="/alumnos"><i class="fas fa-user-graduate"></i> Alumnos</a>
+                <a href="/materias"><i class="fas fa-book"></i> Materias</a>
+                <a href="/profesores"><i class="fas fa-chalkboard-teacher"></i> Profesores</a>
+                <a href="#"><i class="fas fa-user-plus"></i> Agregar Usuario</a>
+                <a href="/acceso" class="text-danger"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+                <label for="btn-menu" class="close-menu">✖️</label>
             </nav>
         </div>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+        <label for="btn-menu" class="btn text-light fs-4 me-3" style="cursor: pointer;">☰</label>
+        <img src="marca.jpg" alt="Logo">
     </header>
-    
-    <div style="margin-left: 700px;" class="container">
-        <div class="row">
-            <div class="dropdown">
-                <br>
-                <button style="background-color: black;" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                
-                    Seleccione Carrera y Año
-                </button>
 
-                <form class="dropdown-menu" method="POST" action="/profcon2" class="col">
-                    <label for="num_carrera" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; background-color: yellow;">CARRERAS</label>
-                    <select class="form-select" name="num_carrera" id="num_carrera">
-                        <option value="" selected disabled>-Haga click para selecionar-</option>
-
-                        <option value="1">TS Desarrollo de Software</option>
-
-                        <option value="2">TS Seguridad e Higiene</option>
-                        
-                        <option value="3">TS Computación y Redes</option>
-                        
-                        <option value="15">TS Administración de Empresas</option>
-                
-                        <option value="14">TS Obras Viales</option>
-                
-                        <option value="16">TS Biomedicina</option>
-              
-                    </select>
-                    <label for="num_carrera"style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; background-color: yellow;">AÑO DE CARRERA</label>
-                    <select class="form-select" name="aio" id="aio">
-                        <option value="" selected disabled>-Haga click para selecionar-</option>
-
-                        <option value="1">Primer año</option>
-
-                        <option value="2">Segundo año</option>
-                        
-                        <option value="3">Tercer año</option>
-
-                    </select>
-                    <button type="submit" class="btn btn-primary">Confirmar y mostrar</button>
-
-
-
-                </form>
-            </div>
+    <!-- BARRA DE NAVEGACIÓN -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container justify-content-center">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a href="#" class="nav-link">Inicio</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Nosotros</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Blog</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Contacto</a></li>
+            </ul>
         </div>
-    </div>
+    </nav>
+    <br>
+    <br>
     
     
-    <div class="capa"></div>
-       
-       <div class='conteiner-fluid row'>
-            <form method='POST' class= 'col-4 p-3' action="/registrarP">
-                
-                <h3  style="color: rgb(3, 3, 3); text-align: center;">DATOS A INGRESAR DEL PROFESOR</h3>
-                
-                    <div class="mb-3">
-                        Nombre
-                        <input type='text' class='form-control' name='name' required>
-                    </div>
-                    
-                    <div class="mb-3">
-                        Apellido
-                        <input type='text' class='form-control' name='apellido' required>
-                    </div>
-                    
-                    <div class="mb-3">
-                        DNI
-                        <input type='number' class='form-control' name='dni' min="0" max="99999999" required>
-                    </div>                
-                    
-                    <div class="mb-3">
-                        Domicilio
-                        <input type='text' class='form-control' name='domicilio' required>
-                    </div>
-                    <div class="mb-3">
-                        Email
-                        <input type='text' class='form-control' name='email' placeholder="ejemplo@gmail.com" required>
-                    </div>
-                    
-                    <div class="mb-3">
-                        Edad
-                        <input type='number' class='form-control' name='edad' min="18" required>
-                    </div>
-                    
-                    <div class="mb-3">
-                        Género
-                        <select class="form-select" name="genero" id="genero" required>
-                            
-                            
-                            <option value="" selected disabled></option>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <form method="POST" class="col-md-6 shadow-lg p-4 rounded bg-light" action="/registrarP">
+                <h3 class="text-center text-primary mb-4">Datos a ingresar del profesor</h3>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" name="name" id="name" placeholder="Nombre del profesor" required>
+                </div>
     
-                            <option>Masculino</option>
+                <div class="mb-3">
+                    <label for="apellido" class="form-label">Apellido</label>
+                    <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Apellido del profesor" required>
+                </div>
     
-                            <option>Femenino</option>
-                            
-                            <option>Otro</option>
-                            
-                  
-                        </select>
-                    </div>               
-                    
-                    <div class="mb-3">
-                        Cuil
-                        <input type='number' class='form-control' name='cuil' required>
-                    </div>
-
-                    <div class="mb-3">
-                        Carrera que brinda
-                        <select class="form-select" name="idc" id="idc" required>
-                            
-                            
-                            <option value="" selected disabled></option>
+                <div class="mb-3">
+                    <label for="dni" class="form-label">DNI</label>
+                    <input type="number" class="form-control" name="dni" id="dni" min="0" max="99999999" placeholder="Ejemplo: 12345678" required>
+                </div>
     
-                            <option value="1">TS Desarrollo de Software</option>
+                <div class="mb-3">
+                    <label for="domicilio" class="form-label">Domicilio</label>
+                    <input type="text" class="form-control" name="domicilio" id="domicilio" placeholder="Dirección del profesor" required>
+                </div>
     
-                            <option value="2">TS Seguridad e Higiene</option>
-                            
-                            <option value="3">TS Computación y Redes</option>
-                            
-                            <option value="15">TS Administración de Empresas</option>
-                    
-                            <option value="14">TS Obras Viales</option>
-                    
-                            <option value="16">TS Biomedicina</option>
-                  
-                        </select>
-                    </div>
-
-                    <div class="mb-3">
-                        Año
-                        <select class="form-select" name="anio" id="anio" required>
-                            
-                            
-                            <option value="" selected disabled></option>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="ejemplo@gmail.com" required>
+                </div>
     
-                            <option value="1">Primer año</option>
+                <div class="mb-3">
+                    <label for="edad" class="form-label">Edad</label>
+                    <input type="number" class="form-control" name="edad" id="edad" min="18" placeholder="Edad del profesor" required>
+                </div>
     
-                            <option value="2">Segundo año</option>
-                            
-                            <option value="3">Tercer año</option>
-                            
-                  
-                        </select>
-                    </div>
-        
-                    <button type='submit' class='btn btn-primary'>Registrar</button>
-                    <input type='button' value='Actualizar' onclick='document.location.reload();'>
-                
-                
+                <div class="mb-3">
+                    <label for="genero" class="form-label">Género</label>
+                    <select class="form-select" name="genero" id="genero" required>
+                        <option value="" selected disabled>Seleccione el género</option>
+                        <option>Masculino</option>
+                        <option>Femenino</option>
+                        <option>Otro</option>
+                    </select>
+                </div>
+    
+                <div class="mb-3">
+                    <label for="cuil" class="form-label">Cuil</label>
+                    <input type="text" class="form-control" name="cuil" id="cuil" placeholder="Ejemplo: 20-12345678-9" required>
+                </div>
+    
+                <div class="mb-3">
+                    <label for="idc" class="form-label">Carrera que Brinda</label>
+                    <select class="form-select" name="idc" id="idc" required>
+                        <option value="" selected disabled>Seleccione la carrera</option>
+                        <option value="1">TS Desarrollo de Software</option>
+                        <option value="2">TS Seguridad e Higiene</option>
+                        <option value="3">TS Computación y Redes</option>
+                        <option value="15">TS Administración de Empresas</option>
+                        <option value="14">TS Obras Viales</option>
+                        <option value="16">TS Biomedicina</option>
+                    </select>
+                </div>
+    
+                <div class="mb-3">
+                    <label for="anio" class="form-label">Año</label>
+                    <select class="form-select" name="anio" id="anio" required>
+                        <option value="" selected disabled>Seleccione el año</option>
+                        <option value="1">Primer año</option>
+                        <option value="2">Segundo año</option>
+                        <option value="3">Tercer año</option>
+                    </select>
+                </div>
+    
+                <button type="submit" class="btn btn-primary">Registrar</button>
+                <button type="button" class="btn btn-secondary" onclick="document.location.reload();">Actualizar</button>
             </form>
-            <div class='col-8 p-3'>
-            <br>
-            <br>
-            <br>
-            <br>
-            
-            <table class='table'>
-                <thead class= 'bg-info'>
-                    <tr class="table-danger">
-                        <th scope='col'>ID Profe</th>
-                        <th scope='col'>Nombre</th>
-                        <th scope='col'>Apellido</th>
-                        <th scope='col'>DNI</th>
-                        <th scope='col'>Domicilio</th>
-                        <th scope='col'>Email</th>
-                        <th scope='col'>Edad</th>
-                        <th scope='col'>Género</th>
-                        <th scope='col'>Cuil</th>
-                        <th scope='col'>Carrera</th>
-                        <th scope='col'></th>
-                        
-                    </tr>
-                </thead>
-                <tbody>
-
-                
-                    {% for fila in cursor1 %}
-                    <tr>
-                        {% for dato in fila %}
-                        <td>{{ dato }}</td>
-                        {% endfor %}
-                        <td>
-                            <form method="POST" action="/editarP">
-                                <button class='btn btn-small btn-warning'><i class='fa-solid fa-pen-to-square'></i></button>
-                                <input type="hidden" name="id_profe" value="{{fila[0]}}">
-                            </form>
-                            <form method="POST" action="borrarP">
-                                <button class='btn btn-small btn-danger'><i class='fa-solid fa-trash'></i></button>
-                                <input type="hidden" name="id_profe" value="{{fila[0]}}">
-                            </form>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                
-                
-
-            </tbody>
-        </table>    
-
-    </div>
+        </div>
 
 </div>
 <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js' integrity='sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm' crossorigin='anonymous'></script>

@@ -4,95 +4,262 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Libretas Digitales</title>
-    <link rel="stylesheet" href="estilo3.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
     <script src="https://kit.fontawesome.com/4b7878dea0.js" crossorigin="anonymous"></script>
+    <!-- Estilos Personalizados -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* HEADER */
+        header {
+            background: linear-gradient(90deg, #343a40, #212529);
+            color: white;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        header img {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: auto;
+        }
+
+        /* MENÚ LATERAL */
+        #btn-menu {
+            display: none;
+        }
+
+        .container-menu {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100%;
+            background-color: #343a40;
+            transition: all 0.3s;
+            z-index: 1050; /* Aseguramos que el menú esté por encima del contenido */
+        }
+
+        .cont-menu {
+            padding: 20px;
+            color: white;
+        }
+
+        .perfil {
+            margin-bottom: 20px;
+        }
+
+        .perfil img {
+            margin-bottom: 10px;
+        }
+
+        .menu-lateral a {
+            color: #ffffff;
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .menu-lateral a:hover {
+            background: #495057;
+        }
+
+        .menu-lateral a i {
+            margin-right: 10px;
+        }
+
+        .close-menu {
+            color: red;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: block;
+            text-align: right;
+        }
+
+        #btn-menu:checked ~ .container-menu {
+            left: 0;
+        }
+
+        /* CONTENIDO CENTRAL */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.3s ease;
+            z-index: 1;
+        }
+
+        #btn-menu:checked ~ main {
+            transform: translateX(300px); /* Mueve el contenido cuando el menú se abre */
+        }
+
+        .title-section {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #343a40;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            border-bottom: 3px solid #007bff;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+
+        .category {
+            color: black;
+            font-size: 25px;
+            text-decoration: none;
+        }
+
+        /* TARJETAS */
+        .card-option {
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            width: 250px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin: 10px;
+        }
+
+        .card-option:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-option i {
+            font-size: 2.5rem;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+        }
+
+        /* BARRA DE NAVEGACIÓN */
+        .navbar {
+            background-color: #212529;
+        }
+
+        .navbar-nav a {
+            color: white;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        .navbar-nav a:hover {
+            color: #ffc107;
+        }
+
+        /* Hacer que las tarjetas se alineen en fila */
+        .card-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+    </style>
 </head>
 <body>
-    <!-- Barra de Navegación Superior -->
-    <header class="header bg-dark text-light py-2">
-        <div class="container-fluid d-flex align-items-center justify-content-between">
-            <!-- Botón Hamburguesa -->
-            <label for="btn-menu" class="btn text-light fs-4 me-3" style="cursor: pointer;">
-                ☰
-            </label>
-            <div class="d-flex align-items-center">
-                <img src="marca.jpg" alt="Logo" width="40" height="28" class="me-2">
-                <h1 class="fs-5 m-0">GeVirtual</h1>
-            </div>
-            <nav class="menu ms-auto">
-                <a href="#" class="text-light me-3">Inicio</a>
-                <a href="#" class="text-light me-3">Nosotros</a>
-                <a href="#" class="text-light me-3">Blog</a>
-                <a href="#" class="text-light">Contacto</a>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Menú Lateral -->
-    <input type="checkbox" id="btn-menu" style="display: none;">
+    <!-- MENÚ LATERAL -->
+    <input type="checkbox" id="btn-menu">
     <div class="container-menu">
         <div class="cont-menu">
-            <nav class="menu-lateral d-flex flex-column">
-                <!-- Perfil del Usuario -->
-                <div class="perfil text-center">
-                    <div id="photo">
-                        <img src="perfil2.jpg" alt="Usuario" class="rounded-circle" style="width: 80px; height: 80px;">
-                    </div>
-                    <div id="nameuser" class="mt-2" style="color: yellow;">
-                        <span>Rol: Usuario</span>
-                    </div>
+            <div class="perfil text-center">
+                <img src="perfil2.jpg" alt="Usuario" class="rounded-circle" style="width: 80px; height: 80px;">
+                <div id="nameuser" style="color: yellow; font-size: 1rem;">
+                    <span>Rol: Usuario</span>
                 </div>
-                <!-- Opciones del Menú -->
-                <a href="/carreras" class="nav-link">
-                    <i class="fas fa-graduation-cap"></i> Carreras
-                </a>
-                <a href="/alumnos" class="nav-link">
-                    <i class="fas fa-user-graduate"></i> Alumnos
-                </a>
-                <a href="/materias" class="nav-link">
-                    <i class="fas fa-book"></i> Materias
-                </a>
-                <a href="/profesores" class="nav-link">
-                    <i class="fas fa-chalkboard-teacher"></i> Profesores
-                </a>
-                <a href="#" class="nav-link">
-                    <i class="fas fa-user-plus"></i> Agregar Usuario
-                </a>
-                <a href="/acceso" class="nav-link text-danger">
-                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-                </a>
-
-                <!-- Botón para cerrar el menú -->
-                <label for="btn-menu" class="close-menu">
-                    ✖️
-                </label>
+            </div>
+            <nav class="menu-lateral">
+                <a href="/carreras"><i class="fas fa-graduation-cap"></i> Carreras</a>
+                <a href="/alumnos"><i class="fas fa-user-graduate"></i> Alumnos</a>
+                <a href="/materias"><i class="fas fa-book"></i> Materias</a>
+                <a href="/profesores"><i class="fas fa-chalkboard-teacher"></i> Profesores</a>
+                <a href="#"><i class="fas fa-user-plus"></i> Agregar Usuario</a>
+                <a href="/acceso" class="text-danger"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+                <label for="btn-menu" class="close-menu">✖️</label>
             </nav>
         </div>
     </div>
-        
-        <main class="main-content">
-            <div class="container">
-                <h2 class="libreta">Libretas Digital de Calificaciones</h2>
+
+    <!-- HEADER -->
+    <header>
+        <label for="btn-menu" class="btn text-light fs-4 me-3" style="cursor: pointer;">☰</label>
+        <img src="marca.jpg" alt="Logo">
+    </header>
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container justify-content-center">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a href="/iniciopagadmin" class="nav-link">Inicio</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Nosotros</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Blog</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- CONTENIDO CENTRAL -->
+    <main>
+        <div class="title-section"></div>
+        <div class="card-container">
+            <div class="card-option">
+                <i class="fas fa-user-graduate"></i>
+                <h5>Consulta de Profesores</h5>
+                <p>Accede a la información de los profesores.</p>
+                <a href="/consprofe" class="btn btn-outline-primary mt-2">Consultar</a>
             </div>
-            <br>
-            <br>
-    
-    
-            <form method="post">
-                <div class="container">
-                <!-- Primera fila de tres elementos arriba -->
-              
-        
-        <a href="/consprofe" class="category notloaded with_children collapsed" style="color: black;font-size: 25px;">➤ Realizar consulta de Profesores</a> 
-        <br>
-        <br>
-        <a href="/abmprofes" class="category notloaded with_children collapsed" style="color: black;font-size: 25px;">➤ Realizar ABM de Profesores</a>
-        <br>
-        <br>
-        <a href="/iniciopag" class="category notloaded with_children collapsed" style="color: black; font-size: 25px;">➤ Volver al Inicio</a>
-        
+            <div class="card-option">
+                <i class="fas fa-cogs"></i>
+                <h5>Alta de Profesores</h5>
+                <p>Añade nuevos profesores al sistema.</p>
+                <a href="/abmprofes" class="btn btn-outline-success mt-2">Cargar</a>
+            </div>
+            <div class="card-option">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <h5>Gestión de Profesores</h5>
+                <p>Gestiona el alta, baja y modificación de profesores.</p>
+                <a href="/myep" class="btn btn-outline-success mt-2">Gestionar</a>
+            </div>
+            <div class="card-option">
+                <i class="fas fa-home"></i>
+                <h5>Volver al Inicio</h5>
+                <p>Regresa a la página principal.</p>
+                <a href="/iniciopagadmin" class="btn btn-outline-warning mt-2">Volver</a>
+            </div>
+        </div>
     </main>
-        
-    
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <p class="mb-0">© 2024 GeVirtual - Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
 </body>
+</html>

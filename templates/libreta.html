@@ -1,86 +1,235 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<meta charset="UTF-8">
-	<title>Libretas Digitales</title>
-	<link rel="stylesheet" href="estilo3.css">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/4b7878dea0.js" crossorigin="anonymous"></script>
-	<script src=" bootstrap.bundle.min.js/ bootstrap.bundle.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevas Opciones</title>
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- FontAwesome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://kit.fontawesome.com/4b7878dea0.js" crossorigin="anonymous"></script>
+    <!-- Estilos Personalizados -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
+        /* HEADER */
+        header {
+            background: linear-gradient(90deg, #343a40, #212529);
+            color: white;
+            padding: 0.5rem;
+        }
+
+        header img {
+            display: block;
+            margin: auto;
+            width: 50px;
+            height: auto;
+        }
+
+        /* MENÚ LATERAL (oculto en impresión) */
+        #btn-menu {
+            display: none;
+        }
+
+        .container-menu {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100%;
+            background-color: #343a40;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .cont-menu {
+            padding: 20px;
+            color: white;
+        }
+
+        .menu-lateral a {
+            color: #ffffff;
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .menu-lateral a:hover {
+            background: #495057;
+        }
+
+        .menu-lateral a i {
+            margin-right: 10px;
+        }
+
+        .close-menu {
+            color: red;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: block;
+            text-align: right;
+        }
+
+        #btn-menu:checked ~ .container-menu {
+            left: 0;
+        }
+
+        /* CONTENIDO CENTRAL */
+        .profile-card {
+            margin: 10px auto;
+            padding: 10px;
+            max-width: 900px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background: #fff;
+        }
+
+        .profile-card img {
+            width: 80px;
+            height: 80px;
+            border: 2px solid #007bff;
+        }
+
+        .profile-card h5 {
+            font-size: 16px;
+        }
+
+        .profile-card p {
+            margin: 2px 0;
+            font-size: 12px;
+        }
+
+        .title-section {
+            font-size: 18px;
+            text-align: center;
+            margin: 10px 0;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+        }
+
+        .table {
+            font-size: 12px;
+        }
+
+        .table th, .table td {
+            padding: 5px;
+        }
+
+        .btn-outline-primary {
+            font-size: 12px;
+        }
+
+        /* ESTILOS PARA IMPRESIÓN */
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+                background: #fff;
+            }
+
+            header, .navbar, #btn-menu, .container-menu {
+                display: none;
+            }
+
+            .profile-card {
+                margin: 0;
+                padding: 5px;
+                border: none;
+                box-shadow: none;
+            }
+
+            .title-section {
+                font-size: 14px;
+                border: none;
+            }
+
+            .table {
+                font-size: 10px;
+            }
+
+            .btn-outline-primary {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <div class="btn-menu">
-                <a><img src="marca.jpg" alt="Logo" width="40" height="28" class="p"></a>
+
+    <div class="container mt-3">
+        <div class="profile-card text-center">
+            <img src="perfil2.jpg" alt="Foto Alumno" class="img-fluid rounded-circle mb-2">
+            <h5 class="fw-bold text-primary">{{resultados.nombre}} {{resultados.apellido}}</h5>
+            <p><strong>DNI:</strong> {{resultados.dni}}</p>
+            <p><strong>Domicilio:</strong> {{resultados.domicilio}}</p>
+            <p><strong>Carrera:</strong> {{resultados.carrera}}</p>
+            <p><strong>Año:</strong> {{resultados.aio}}°</p>
+            <p><strong>Ciclo Lectivo:</strong> 2024</p>
+            <br>
+            <div class="">
+                <h5 class="fw-bold text-primary mb-3">Información General</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><strong>Instituto:</strong> IES 9-012 en Informática</li>
+                    <li class="mb-2"><strong>Fecha de Ingreso:</strong> PONER</li>
+                    <li><strong>Condición:</strong> PONER</li>
+                </ul>
             </div>
-            <div class="logo">
-                <h1>GeVirtual</h1>
-            </div>
-            <nav class="menu">
-                <a href="/iniciopag">Inicio</a>
-                <a href="#">Nosotros</a>
-                <a href="#">Blog</a>
-                <a href="#">Contacto</a>
-            </nav>
         </div>
-    </header>
-    <br>
+        
+    </div>
 
-    <div class="container">
-        <div class="row">
-            
-            <h1 style="font-family: Verdana, Geneva, Tahoma, sans-serif; color: rgb(0, 0, 0); font-size: 30px; text-decoration: underline;">Alumno Selecionado: {{resultados.nombre}} {{resultados.apellido}}</h1>
-            <h1 style="font-family: Verdana, Geneva, Tahoma, sans-serif; color: rgb(0, 0, 0); font-size: 20px;">DNI: {{resultados.dni}}</h1>
-            <h1 style="font-family: Verdana, Geneva, Tahoma, sans-serif; color: rgb(0, 0, 0); font-size: 20px;">Domicilio: {{resultados.domicilio}}</h1>
-            <h1 style="font-family: Verdana, Geneva, Tahoma, sans-serif; color: rgb(0, 0, 0); font-size: 20px;">Carrera: {{resultados.carrera}}</h1>
-            <h1 style="font-family: Verdana, Geneva, Tahoma, sans-serif; color: rgb(0, 0, 0); font-size: 20px;">Año: {{resultados.aio}}°</h1>
-
-
-
+    <section class="container mt-3">
+        <div class="title-section">Libreta del alumno</div>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th>Espacio Curricular</th>
+                        <th>Nota Mínima</th>
+                        <th>Nota Máxima</th>
+                        <th>Notas Ingresadas</th>
+                        <th>Promedio</th>
+                        <th>Revisión</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for fila in resultados.materias %}
+                    <tr>
+                        {% for dato in fila %}
+                        {% if loop.index0 != 1 %}
+                        <td>{{ dato }}</td>
+                        {% endif %}
+                        {% endfor %}
+                        <td>
+                            <form method="POST" action="/revisarnotas">
+                                <button class="btn btn-small btn-primary">Ver</button>
+                                <input type="hidden" name="id_carrera" value="{{fila[1]}}">
+                                <input type="hidden" name="id_alum" value="{{resultados.id}}">
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="text-end mt-3">
+            <button class="btn btn-outline-primary" onclick="window.print()">
+                <i class="fas fa-print"></i> Imprimir
+            </button>
         </div>
         <br>
-    <table class='table'>
-        <thead class= 'bg-info'>
-            <tr class="table-danger">
-                <th scope='col'>Espacio Curricular</th>
-                <th scope='col'>ID Materia</th>
-                <th scope='col'>Nota Mínima</th>
-                <th scope='col'>Nota Máxima</th>
-                <th scope='col'>Notas ingresadas</th>
-                <th scope='col'>Promedio total</th>
-                <th scope='col'>Revisión</th>
-                
-            </tr>
-        </thead>
-        <tbody>
-
-        {% for fila in resultados.materias %}
-            <tr>
-                {% for dato in fila %}
-                <td>{{ dato }}</td>
-                {% endfor %}
-                <td>
-                    <form method="POST" action="/revisarnotas">
-                        <button class='btn btn-small btn-primary'>Ver<i></i></button>
-                        <input type="hidden" name="id_carrera" value="{{fila[1]}}">
-                        <input type="hidden" name="id_alum" value="{{resultados.id}}">
-
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
-        
-        
-
-    </tbody>
-</table>    
-
-
+        <div class="text-end mt-3">
+            <a href="/consparagenerar" class="btn btn-outline-primary">
+                <i class="fas fa-arrow-left"></i> Volver Atrás
+            </a>
+        </div>
+    </section>
+    
+    
 </body>
-
 </html>
