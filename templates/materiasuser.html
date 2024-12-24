@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Libretas Digitales</title>
+    <title>Nuevas Opciones</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- FontAwesome -->
@@ -48,7 +48,7 @@
             height: 100%;
             background-color: #343a40;
             transition: all 0.3s;
-            z-index: 1050; /* Aseguramos que el menú esté por encima del contenido */
+            z-index: 1050;
         }
 
         .cont-menu {
@@ -105,7 +105,7 @@
         }
 
         #btn-menu:checked ~ main {
-            transform: translateX(300px); /* Mueve el contenido cuando el menú se abre */
+            transform: translateX(300px);
         }
 
         .title-section {
@@ -119,13 +119,12 @@
             padding-bottom: 0.5rem;
         }
 
-        .category {
-            color: black;
-            font-size: 25px;
-            text-decoration: none;
+        .options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
         }
 
-        /* TARJETAS */
         .card-option {
             background-color: white;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -134,7 +133,6 @@
             width: 250px;
             text-align: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            margin: 10px;
         }
 
         .card-option:hover {
@@ -169,14 +167,6 @@
         .navbar-nav a:hover {
             color: #ffc107;
         }
-
-        /* Hacer que las tarjetas se alineen en fila */
-        .card-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
     </style>
 </head>
 <body>
@@ -187,7 +177,7 @@
             <div class="perfil text-center">
                 <img src="perfil2.jpg" alt="Usuario" class="rounded-circle" style="width: 80px; height: 80px;">
                 <div id="nameuser" style="color: yellow; font-size: 1rem;">
-                    <span>Rol: Administrador</span>
+                    <span>Rol: Usuario</span>
                 </div>
             </div>
             <nav class="menu-lateral">
@@ -212,9 +202,9 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container justify-content-center">
             <ul class="navbar-nav">
-                <li class="nav-item"><a href="/iniciopagadmin" class="nav-link">Inicio</a></li>
+                <li class="nav-item"><a href="/iniciopaguser" class="nav-link">Inicio</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">Nosotros</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">Blog</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Servicios</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">Contacto</a></li>
             </ul>
         </div>
@@ -222,31 +212,20 @@
 
     <!-- CONTENIDO CENTRAL -->
     <main>
-        <div class="title-section"></div>
-        <div class="card-container">
+        <div class="title-section">Materias</div>
+        <div class="options">
             <div class="card-option">
-                <i class="fas fa-user-graduate"></i>
-                <h5>Consulta de Profesores</h5>
-                <p>Accede a la información de los profesores.</p>
-                <a href="/consprofe" class="btn btn-outline-primary mt-2">Consultar</a>
+                <i class="fas fa-search"></i>
+                <h5>Realizar Consulta de Materias</h5>
+                <p>Consulta la información sobre las materias disponibles.</p>
+                <a href="/materiacarrera" class="btn btn-outline-primary mt-2">Consultar</a>
             </div>
-            <div class="card-option">
-                <i class="fas fa-cogs"></i>
-                <h5>Alta de Profesores</h5>
-                <p>Añade nuevos profesores al sistema.</p>
-                <a href="/abmprofes" class="btn btn-outline-success mt-2">Cargar</a>
-            </div>
-            <div class="card-option">
-                <i class="fas fa-chalkboard-teacher"></i>
-                <h5>Gestión de Profesores</h5>
-                <p>Gestiona el alta, baja y modificación de profesores.</p>
-                <a href="/myep" class="btn btn-outline-success mt-2">Gestionar</a>
-            </div>
+            
             <div class="card-option">
                 <i class="fas fa-home"></i>
                 <h5>Volver al Inicio</h5>
                 <p>Regresa a la página principal.</p>
-                <a href="/iniciopagadmin" class="btn btn-outline-warning mt-2">Volver</a>
+                <a href="/iniciopaguser" class="btn btn-outline-warning mt-2">Volver</a>
             </div>
         </div>
     </main>

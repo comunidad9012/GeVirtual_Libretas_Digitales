@@ -44,20 +44,14 @@
                     </div>
                 </div>
                 <!-- Opciones del Menú -->
-                <a href="/carreras" class="nav-link">
+                <a href="/carrerauser" class="nav-link">
                     <i class="fas fa-graduation-cap"></i> Carreras
                 </a>
-                <a href="/alumnos" class="nav-link">
-                    <i class="fas fa-user-graduate"></i> Alumnos
-                </a>
-                <a href="/materias" class="nav-link">
+                <a href="/materiasuser" class="nav-link">
                     <i class="fas fa-book"></i> Materias
                 </a>
-                <a href="/profesores" class="nav-link">
+                <a href="/profesoresuser" class="nav-link">
                     <i class="fas fa-chalkboard-teacher"></i> Profesores
-                </a>
-                <a href="#" class="nav-link">
-                    <i class="fas fa-user-plus"></i> Agregar Usuario
                 </a>
                 <a href="/acceso" class="nav-link text-danger">
                     <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
@@ -77,55 +71,71 @@
 		<br>
 		<br>
         <div class="container text-center">
-            <h2 class="libreta mb-5">Libretas Digitales de Calificaciones</h2>
+            <h2 class="libreta mb-5">Gestión Educativa Virtual</h2>
 
             <!-- Tarjetas Responsivas -->
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-                <!-- Tarjeta Alumnos -->
-                <div class="col">
-                    <div class="card shadow h-100">
-                        <img src="alumnos.jpg" class="card-img-top" alt="Alumnos">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Alumnos</h5>
-                            <a href="/alumnos" class="btn btn-primary w-100">Ver</a>
+            <div class="container">
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <!-- Tarjeta Carreras -->
+                    <div class="col-md-4">
+                        <div class="card" style="margin-left: 120px; border-radius: 8px;" >
+                            <img src="carrera.jpg" class="card-img-top" alt="Carreras">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">Carreras</h5>
+                                <a href="/carrerasuser" class="btn btn-primary d-block">Ver</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Tarjeta Materias -->
-                <div class="col">
-                    <div class="card shadow h-100">
-                        <img src="materias.jpg" class="card-img-top" alt="Materias">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Materias</h5>
-                            <a href="/materias" class="btn btn-primary w-100">Ver</a>
+    
+                    <!-- Tarjeta Materias -->
+                    <div class="col-md-4">
+                        <div class="card" style="margin-left: 120px; border-radius: 8px;">
+                            <img src="materias.jpg" class="card-img-top" alt="Materias">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">Materias</h5>
+                                <a href="/materiasuser" class="btn btn-primary d-block">Ver</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Tarjeta Horarios -->
-                <div class="col">
-                    <div class="card shadow h-100">
-                        <img src="horario.jpg" class="card-img-top" alt="Horario">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Horario</h5>
-                            <a href="/horarios" class="btn btn-primary w-100">Ver</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tarjeta Libreta -->
-                <div class="col">
-                    <div class="card shadow h-100">
-                        <img src="libreta.jpg" class="card-img-top" alt="Generar Libreta">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Generar Libreta</h5>
-                            <a href="/generar" class="btn btn-primary w-100">Generar</a>
+                    <div class="col-md-4">
+                        <div class="card" style="margin-left: 120px; border-radius: 8px;" >
+                            <img src="profesor.jpg" class="card-img-top" alt="Carreras">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">Profesores</h5>
+                                <a href="/profesoresuser" class="btn btn-primary d-block">Ver</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <br>
+            <br>
+            <div class="container">
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+    
+                    <!-- Tarjeta Alumnos -->
+                    <div class="col-md-4">
+                        <div class="card" style="margin-left: 120px; border-radius: 8px;">
+                            <img src="horario.jpg" class="card-img-top" alt="Alumnos">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">Horario</h5>
+                                <a href="/horarios" class="btn btn-primary d-block">Ver</a>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <!-- Tarjeta Materias -->
+                    <div class="col-md-4">
+                        <div class="card" style="margin-left: 120px; border-radius: 8px;">
+                            <img src="libreta.jpg" class="card-img-top" style="height: 150px;" alt="Materias">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">Generar libreta</h5>
+                                <a href="/generaruser" class="btn btn-primary d-block">Ver</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </main>
 
 

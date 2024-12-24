@@ -1,65 +1,305 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<meta charset="UTF-8">
-	<title>Libretas Digitales</title>
-	<link rel="stylesheet" href="estilo3.css">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevas Opciones</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/4b7878dea0.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/4b7878dea0.js" crossorigin="anonymous"></script>
 	<script src=" bootstrap.bundle.min.js/ bootstrap.bundle.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        h3 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .form-group label {
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .form-control, .form-select {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .form-container .btn {
+            margin-top: 15px;
+        }
+        header {
+            background: linear-gradient(90deg, #343a40, #212529);
+            color: white;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        header img {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: auto;
+        }
+
+        /* MENÚ LATERAL */
+        #btn-menu {
+            display: none;
+        }
+
+        .container-menu {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100%;
+            background-color: #343a40;
+            transition: all 0.3s;
+            z-index: 1050; /* Aseguramos que el menú esté por encima del contenido */
+        }
+
+        .cont-menu {
+            padding: 20px;
+            color: white;
+        }
+
+        .perfil {
+            margin-bottom: 20px;
+        }
+
+        .perfil img {
+            margin-bottom: 10px;
+        }
+
+        .menu-lateral a {
+            color: #ffffff;
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .menu-lateral a:hover {
+            background: #495057;
+        }
+
+        .menu-lateral a i {
+            margin-right: 10px;
+        }
+
+        .close-menu {
+            color: red;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: block;
+            text-align: right;
+        }
+
+        #btn-menu:checked ~ .container-menu {
+            left: 0;
+        }
+
+        /* CONTENIDO CENTRAL */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.3s ease;
+            z-index: 1;
+        }
+
+        #btn-menu:checked ~ main {
+            transform: translateX(300px); /* Mueve el contenido cuando el menú se abre */
+        }
+
+        .title-section {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #343a40;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            border-bottom: 3px solid #007bff;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+
+        .category {
+            color: black;
+            font-size: 25px;
+            text-decoration: none;
+        }
+
+        /* TARJETAS */
+        .card-option {
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            width: 250px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin: 10px;
+        }
+
+        .card-option:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-option i {
+            font-size: 2.5rem;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+        }
+
+        /* BARRA DE NAVEGACIÓN */
+        .navbar {
+            background-color: #212529;
+        }
+
+        .navbar-nav a {
+            color: white;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        .navbar-nav a:hover {
+            color: #ffc107;
+        }
+
+        /* Hacer que las tarjetas se alineen en fila */
+        .card-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+    </style>
 </head>
 <body>
-        <header class="header">
-            <div class="container">
-                <div class="btn-menu">
-                    <a><img src="marca.jpg" alt="Logo" width="40" height="28" class="p"></a>
-                    <label for="btn-menu">☰</label>
+    <input type="checkbox" id="btn-menu">
+    <div class="container-menu">
+        <div class="cont-menu">
+            <div class="perfil text-center">
+                <img src="perfil2.jpg" alt="Usuario" class="rounded-circle" style="width: 80px; height: 80px;">
+                <div id="nameuser" style="color: yellow; font-size: 1rem;">
+                    <span>Rol: Administrador</span>
                 </div>
-                <div class="logo">
-                    <h1>GeVirtual</h1>
-                </div>
-                <nav class="menu">
-                    <a href="/iniciopag">Inicio</a>
-                    <a href="#">Nosotros</a>
-                    <a href="#">Blog</a>
-                    <a href="#">Contacto</a>
-                </nav>
             </div>
-        </header>
-        <div class="capa"></div>
-
-        <!-- Menú Lateral -->
-        <input type="checkbox" id="btn-menu">
-        <div class="container-menu">
-            <div class="cont-menu">
-                <nav>
-                    <br>
-                    <br>
-
-                    <div class="perfil" id="profile">
-                        <div id="photo"> <img src="perfil2.jpg" alt="usuario" class="perf"></div>
-                        <div id="nameuser" style="color: yellow;"><span>Administrador</span></div>
-                    </div>
-                    <br>
-                    <br>
-                    <a href="carreras.html">Carerras</a>
-                    <a href="#">Alumnos</a>
-                    <a href="#">Materias</a>
-                    <a href="#">Profesores</a>
-
-                </nav>
-                <label for="btn-menu">✖️</label>
-            </div>
+            <nav class="menu-lateral">
+                <a href="/carreras"><i class="fas fa-graduation-cap"></i> Carreras</a>
+                <a href="/alumnos"><i class="fas fa-user-graduate"></i> Alumnos</a>
+                <a href="/materias"><i class="fas fa-book"></i> Materias</a>
+                <a href="/profesores"><i class="fas fa-chalkboard-teacher"></i> Profesores</a>
+                <a href="#"><i class="fas fa-user-plus"></i> Agregar Usuario</a>
+                <a href="/acceso" class="text-danger"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+                <label for="btn-menu" class="close-menu">✖️</label>
+            </nav>
         </div>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+        <label for="btn-menu" class="btn text-light fs-4 me-3" style="cursor: pointer;">☰</label>
+        <img src="marca.jpg" alt="Logo">
+    </header>
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container justify-content-center">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a href="/iniciopagadmin" class="nav-link">Inicio</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Nosotros</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Blog</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+    <br>
+        
         
         <main class="main-content">
             <div class="container">
-                <h2 class="libreta">Libretas Digital de Calificaciones</h2>
+                <h2 class="libreta">Gestion Educativa Virtual</h2>
             </div>
             <br>
             <br>
-    
     
             <form method="post">
                 <div class="container">

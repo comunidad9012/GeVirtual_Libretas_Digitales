@@ -254,7 +254,7 @@ def registrarC(request, response):
     #SIRVE PARA REDIRECCIONAR
     response=Response()
     response.status_code = 302
-    response.headers['Location'] = '/abmcarreras'
+    response.headers['Location'] = '/carreras'
     return response
 
 #BORRAR CARRERAS
@@ -269,7 +269,7 @@ def borrarC (request, response):
     conexion1.commit()
     response=Response()
     response.status_code = 302
-    response.headers['Location'] = '/abmcarreras'
+    response.headers['Location'] = '/carreras'
     return response
 
 #EDITAR CARRERAS
@@ -307,7 +307,7 @@ def confirC (request, response):
     conexion1.commit()
     response=Response()
     response.status_code = 302
-    response.headers['Location'] = '/abmcarreras'
+    response.headers['Location'] = '/carreras'
     return response
 
 #ALUMNOS
@@ -437,7 +437,7 @@ def matricularA (request, response):
     #SIRVE PARA REDIRECCIONAR
     response=Response()
     response.status_code = 302
-    response.headers['Location'] = '/abmalumnos'
+    response.headers['Location'] = '/alumnos'
     return response
 
 #ABM ALUMNOS
@@ -523,7 +523,7 @@ def borrarC (request, response):
     conexion1.commit()
     response=Response()
     response.status_code = 302
-    response.headers['Location'] = '/abmalumnos'
+    response.headers['Location'] = '/alumnos'
     return response
 
 #CARGAR CALIFICACIONES DE ALUMNOS 
@@ -582,17 +582,18 @@ def confirA (request, response):
     Materia = request.POST.get('materia')
     Evaluacion = request.POST.get('evaluacion')
     Calificacion = request.POST.get('calificacion')
+    Ingreso = request.POST.get('fecha_ingreso')
 
 
     try:
-        cursor1.execute ("INSERT INTO Libreta(alum_id,Evaluacion_id,Calificacion,Materia_id) VALUES (%s,%s,%s,%s)", (id, Evaluacion, Calificacion, Materia))
+        cursor1.execute ("INSERT INTO Libreta(alum_id,Evaluacion_id,Calificacion,Materia_id, fecha) VALUES (%s,%s,%s,%s,%s)", (id, Evaluacion, Calificacion, Materia,Ingreso))
         conexion1.commit()
     except Exception as e:
         print("Error mysql:", str(e))
     conexion1.commit()
     response=Response()
     response.status_code = 302
-    response.headers['Location'] = '/cargarcalificacion'
+    response.headers['Location'] = '/alumnos'
     return response
 
 
@@ -605,6 +606,14 @@ def mat(request, response):
     response.text = rendered_html
     return response
 
+#MATERIAS user
+@app.ruta('/materiasuser')
+def matuser(request, response):
+    template= env.get_template('materiasuser.html')
+    rendered_html = template.render()
+    response=Response()
+    response.text = rendered_html
+    return response
 
 #CONSULTA DE MATERIAS
 @app.ruta('/materiacarrera')
@@ -749,7 +758,7 @@ def registrarM(request, response):
     #SIRVE PARA REDIRECCIONAR
     response=Response()
     response.status_code = 302
-    response.headers['Location'] = '/abmaterias'
+    response.headers['Location'] = '/materias'
     return response
 
 #EDITAR DATOS DE MATERIA
@@ -787,7 +796,7 @@ def confirM (request, response):
     conexion1.commit()
     response=Response()
     response.status_code = 302
-    response.headers['Location'] = '/myem'
+    response.headers['Location'] = '/materias'
     return response
 
 #BORRAR MATERIA
@@ -800,7 +809,7 @@ def borrarC (request, response):
     conexion1.commit()
     response=Response()
     response.status_code = 302
-    response.headers['Location'] = '/myem'
+    response.headers['Location'] = '/materias'
     return response
 
 
@@ -808,6 +817,15 @@ def borrarC (request, response):
 @app.ruta('/profesores')
 def profesores(request, response):
     template= env.get_template('profesores.html')
+    rendered_html = template.render()
+    response=Response()
+    response.text = rendered_html
+    return response
+
+#PROFESORES
+@app.ruta('/profesoresuser')
+def profesores(request, response):
+    template= env.get_template('profesoresuser.html')
     rendered_html = template.render()
     response=Response()
     response.text = rendered_html
@@ -834,7 +852,7 @@ def profecons(request, response):
     
     
     
-    cursor1.execute("""SELECT profesor.id_profesor, profesor.nombre, profesor.apellido, profesor.dni, profesor.domicilio, profesor.email, profesor.edad, profesor.genero, profesor.cuil, materias.nombre as Materia 
+    cursor1.execute("""SELECT profesor.id_profesor, profesor.nombre, profesor.apellido, profesor.dni, profesor.domicilio, profesor.email, profesor.edad, profesor.genero, profesor.cuil, profesor.docente, materias.nombre as Materia 
                     FROM profesor INNER JOIN materias ON profesor.id_profesor = materias.id_prof_corresp
                     WHERE materias.id_carre_corresp = %s AND materias.anio = %s;""", (num, aio))
 
@@ -873,7 +891,7 @@ def profecon2(request, response):
     num = request.POST.get('num_carrera')
     aio = request.POST.get('aio')
     
-    cursor1.execute("""SELECT profesor.id_profesor, profesor.nombre, profesor.apellido, profesor.dni, profesor.domicilio, profesor.email, profesor.edad, profesor.genero, profesor.cuil, materias.nombre as Materia 
+    cursor1.execute("""SELECT profesor.id_profesor, profesor.nombre, profesor.apellido, profesor.dni, profesor.domicilio, profesor.email, profesor.edad, profesor.genero, profesor.cuil, profesor.docente ,materias.nombre as Materia 
                     FROM profesor INNER JOIN materias ON profesor.id_profesor = materias.id_prof_corresp
                     WHERE materias.id_carre_corresp = %s AND materias.anio = %s;""", (num, aio))
         
@@ -898,13 +916,14 @@ def matricularP (request, response):
     cuil = request.POST.get('cuil')
     IDC = request.POST.get('idc')
     Año = request.POST.get('anio')
+    Docente = request.POST.get('docente')
 
-    cursor1.execute ("INSERT INTO Profesor(Nombre,Apellido,DNI,Domicilio,Email,Edad,Genero,Cuil,id_carrerac, anio) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", (Nombre, Apellido, DNI, Domicilio,Email,Edad,Genero,cuil,IDC,Año))
+    cursor1.execute ("INSERT INTO Profesor(Nombre,Apellido,DNI,Domicilio,Email,Edad,Genero,Cuil,id_carrerac, anio, docente) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", (Nombre, Apellido, DNI, Domicilio,Email,Edad,Genero,cuil,IDC,Año, Docente))
     conexion1.commit()
     #SIRVE PARA REDIRECCIONAR
     response=Response()
     response.status_code = 302
-    response.headers['Location'] = '/abmprofes'
+    response.headers['Location'] = '/profesores'
     return response
 
 #EDITAR DATOS DEL PROFE
@@ -940,17 +959,18 @@ def confirP (request, response):
     Genero = request.POST.get('genero')
     IDC = request.POST.get('idc')
     Año = request.POST.get('anio')
+    Docente = request.POST.get('docente')
 
 
     try:
-        resultado = f"UPDATE `mydb`.`Profesor` SET `Nombre` = '{Nombre}', `Apellido` = '{Apellido}', `DNI` = '{DNI}', `Domicilio` = '{Domicilio}',`Email` = '{Email}', `Edad` = '{Edad}', `Genero` = '{Genero}',`Cuil` = '{Cuil}' , `id_carrerac` = '{IDC}', `anio` = '{Año}' WHERE (`ID_profesor` = '{id}');"
+        resultado = f"UPDATE `mydb`.`Profesor` SET `Nombre` = '{Nombre}', `Apellido` = '{Apellido}', `DNI` = '{DNI}', `Domicilio` = '{Domicilio}',`Email` = '{Email}', `Edad` = '{Edad}', `Genero` = '{Genero}',`Cuil` = '{Cuil}' , `id_carrerac` = '{IDC}', `anio` = '{Año}', `docente` = '{Docente}' WHERE (`ID_profesor` = '{id}');"
         cursor1.execute (resultado)
     except Exception as e:
         print("Error mysql:", str(e))
     conexion1.commit()
     response=Response()
     response.status_code = 302
-    response.headers['Location'] = '/abmprofes'
+    response.headers['Location'] = '/profesores'
     return response
 
 #BORRAR PROFESOR
@@ -963,7 +983,7 @@ def borrarP (request, response):
     conexion1.commit()
     response=Response()
     response.status_code = 302
-    response.headers['Location'] = '/abmprofes'
+    response.headers['Location'] = '/profesores'
     return response
 
 #HORARIOS
@@ -1092,6 +1112,8 @@ def libreta(request, response):
     domicilio = request.POST.get('domicilio')
     carrera = request.POST.get ('carrera')
     aio = request.POST.get ('aio')
+    estado = request.POST.get('estado')
+    ingreso = request.POST.get('ingreso')
 
     resultados = {}
     
@@ -1102,6 +1124,9 @@ def libreta(request, response):
     resultados ['domicilio']= domicilio
     resultados ['carrera']= carrera
     resultados ['aio']= aio
+    resultados ['estado'] = estado
+    resultados ['ingreso'] = ingreso
+
     
     cursor1.execute("""SELECT materias.Nombre AS nombre_materia, libreta.Materia_id, min(libreta.calificacion), max(libreta.calificacion), count(libreta.calificacion), avg(libreta.Calificacion)
         FROM materias
@@ -1127,7 +1152,7 @@ def revisar (request, response):
     id = request.POST.get('id_carrera')
     ida = request.POST.get('id_alum')
 
-    cursor1.execute("""SELECT libreta.calificacion, tipo_evaluación.nombre
+    cursor1.execute("""SELECT libreta.calificacion, libreta.fecha, tipo_evaluación.nombre
                     FROM libreta
                     INNER JOIN tipo_evaluación
                     ON libreta.evaluacion_id = tipo_evaluación.ID_Tipo_evaluacion

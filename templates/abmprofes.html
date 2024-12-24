@@ -259,7 +259,7 @@
             <div class="perfil text-center">
                 <img src="perfil2.jpg" alt="Usuario" class="rounded-circle" style="width: 80px; height: 80px;">
                 <div id="nameuser" style="color: yellow; font-size: 1rem;">
-                    <span>Rol: Usuario</span>
+                    <span>Rol: Administrador</span>
                 </div>
             </div>
             <nav class="menu-lateral">
@@ -284,7 +284,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container justify-content-center">
             <ul class="navbar-nav">
-                <li class="nav-item"><a href="#" class="nav-link">Inicio</a></li>
+                <li class="nav-item"><a href="/iniciopagadmin" class="nav-link">Inicio</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">Nosotros</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">Blog</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">Contacto</a></li>
@@ -343,6 +343,16 @@
                     <label for="cuil" class="form-label">Cuil</label>
                     <input type="text" class="form-control" name="cuil" id="cuil" placeholder="Ejemplo: 20-12345678-9" required>
                 </div>
+
+                <div class="mb-3">
+                    <label for="docente" class="form-label">Género</label>
+                    <select class="form-select" name="docente" id="docente" required>
+                        <option value="" selected disabled>Seleccione el cargo del profesor</option>
+                        <option>Titular</option>
+                        <option>Suplente</option>
+                        <option>Interino</option>
+                    </select>
+                </div>
     
                 <div class="mb-3">
                     <label for="idc" class="form-label">Carrera que Brinda</label>
@@ -368,7 +378,11 @@
                 </div>
     
                 <button type="submit" class="btn btn-primary">Registrar</button>
-                <button type="button" class="btn btn-secondary" onclick="document.location.reload();">Actualizar</button>
+                <div class="text-end mt-3">
+                    <a href="/profesores" class="btn btn-outline-primary">
+                        <i ></i> Cancelar
+                    </a>
+                </div>            
             </form>
         </div>
 

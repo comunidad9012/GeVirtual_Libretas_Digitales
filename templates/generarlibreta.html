@@ -48,7 +48,7 @@
 
                 <!-- Corrigiendo la forma del formulario -->
                 <form class="dropdown-menu" method="POST" action="/consparagenerar" class="col">
-                    <label for="num_carrera" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; background-color: yellow;">CARRERA</label>
+                    <label for="num_carrera" >Carrera</label>
                     <select class="form-select" name="num_carrera" id="num_carrera">
                         <option value="" selected disabled>-Haga click para seleccionar-</option>
                         <option value="1">TS Desarrollo de Software</option>
@@ -58,7 +58,7 @@
                         <option value="14">TS Obras Viales</option>
                         <option value="16">TS Biomedicina</option>
                     </select>
-                    <label for="aio" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; background-color: yellow;">AÑO DE CARRERA</label>
+                    <label for="aio" >Año de carrera</label>
                     <select class="form-select" name="aio" id="aio">
                         <option value="" selected disabled>-Haga click para selecionar-</option>
                         <option value="1">Primer año</option>
@@ -75,44 +75,61 @@
     <br>
     <br>
 
-    <table class='table'>
-        <thead class='bg-info'>
-            <tr class="table-danger">
-                <th scope='col'>ID_Alum</th>
-                <th scope='col'>Nombre</th>
-                <th scope='col'>Apellido</th>
-                <th scope='col'>DNI</th>
-                <th scope='col'>Domicilio</th>
-                <th scope='col'>Email</th>
-                <th scope='col'>Edad</th>
-                <th scope='col'>Género</th>
-                <th scope='col'>IDcarrera</th>
-                <th scope='col'>Año</th>
-                <th scope='col'>Carrera</th>
-                <th scope='col'>Generar libreta</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for fila in cursor1 %}
-            <tr>
-                {% for dato in fila %}
-                <td>{{ dato }}</td>
-                {% endfor %}
-                <td>
-                    <form method="POST" action="/libreta">
-                        <button class='btn btn-small btn-primary'><i class='fa-solid fa-file'></i></button>
-                        <input type="hidden" name="id_alumno" value="{{fila[0]}}">
-                        <input type="hidden" name="nombrealumno" value="{{fila[1]}}">
-                        <input type="hidden" name="apellidoalumno" value="{{fila[2]}}">
-                        <input type="hidden" name="dni" value="{{fila[3]}}">
-                        <input type="hidden" name="domicilio" value="{{fila[4]}}">
-                        <input type="hidden" name="carrera" value="{{fila[10]}}">
-                        <input type="hidden" name="aio" value="{{fila[9]}}">
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="container mt-4">
+        <div class="table-responsive shadow-sm rounded">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-dark text-center">
+                    <tr>
+                        <th scope="col">ID Alumno</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">DNI</th>
+                        <th scope="col">Domicilio</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Edad</th>
+                        <th scope="col">Género</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Ingreso</th>
+                        <th scope="col">ID Carrera</th>
+                        <th scope="col">Año</th>
+                        <th scope="col">Carrera</th>
+                        <th scope="col">Generar Libreta</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    {% for fila in cursor1 %}
+                    <tr>
+                        {% for dato in fila %}
+                        <td>{{ dato }}</td>
+                        {% endfor %}
+                        <td>
+                            <form method="POST" action="/libreta" class="d-inline">
+                                <button class="btn btn-primary btn-sm">
+                                    <i class="fa-solid fa-file"></i> Generar
+                                </button>
+                                <input type="hidden" name="id_alumno" value="{{fila[0]}}">
+                                <input type="hidden" name="nombrealumno" value="{{fila[1]}}">
+                                <input type="hidden" name="apellidoalumno" value="{{fila[2]}}">
+                                <input type="hidden" name="dni" value="{{fila[3]}}">
+                                <input type="hidden" name="domicilio" value="{{fila[4]}}">
+                                <input type="hidden" name="carrera" value="{{fila[10]}}">
+                                <input type="hidden" name="aio" value="{{fila[11]}}">
+                                <input type="hidden" name="estado" value="{{fila[8]}}">
+                                <input type="hidden" name="ingreso" value="{{fila[9]}}">
+
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="text-end mt-3">
+            <a href="/iniciopagadmin" class="btn btn-outline-primary">
+                <i class="fas fa-arrow-left"></i> Volver Atrás
+            </a>
+        </div>
+    </div>
+    
 </body>
 </html>
