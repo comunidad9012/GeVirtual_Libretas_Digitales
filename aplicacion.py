@@ -10,6 +10,8 @@ from flask import Flask, session
 
 #waitress-serve --listen=127.0.0.1:8000 aplicacion:app
 #.\env\Scripts\activate
+#.\.venv\Scripts\activate este
+#cd C:\Users\bauti\OneDrive\Escritorio\Proyecto\GeVirtual_Libretas_Digitales
 
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
 env = Environment(loader=FileSystemLoader(template_dir))
